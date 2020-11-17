@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ArticlesFragmentViewModel"
+            type="com.newspaperapp.fragments.articlesFragment.ArticlesFragmentViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <TextView
+            android:id="@+id/titleApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/titleArticles"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center" />
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <TextView
+            android:id="@+id/titleArticles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ArticlesFragmentViewModel.titleArticleMLD}"
+            android:textSize="25sp"
+            tools:text="Software"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleApp"
+            android:layout_marginStart="10dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/articlesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/titleArticles"
+            tools:listitem="@layout/top_author_item_adapter"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:visibility="@{ArticlesFragmentViewModel.dataFetchingProgressMLD ? View.VISIBLE : View.GONE}"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_gravity="center_horizontal|bottom"
+            app:lottie_rawRes="@raw/loading" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:visibility="@{ArticlesFragmentViewModel.errorMLD ? View.VISIBLE : View.GONE}"
+            android:text="@string/error_fetch_data"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
